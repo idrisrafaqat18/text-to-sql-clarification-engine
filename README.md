@@ -1,6 +1,6 @@
 # Text-to-SQL with Clarification Engine
 
-**Goal:** Let users ask questions in plain English over a company database (customers, orders, payments), backed by an engine that actively detects *ambiguous* questions and asks for targeted clarification before generating SQL — bridging the gap between tutorial AI and production AI.
+**Goal:** Let users ask questions in plain English over a company database (customers, orders, payments), backed by an engine that actively detects *ambiguous* questions and asks for targeted clari[...]
 
 ---
 
@@ -116,5 +116,5 @@ The relational schema consists of three interconnected core business entities:
 2. Check `notes/docker-notes.md` for Docker troubleshooting
 3. Explore the schema by connecting to the running database:
    ```bash
-   docker exec -it text2sql-db psql -U intern -d companydb
+   docker exec -it text2sql-db psql -U user -d companydb
    ```
