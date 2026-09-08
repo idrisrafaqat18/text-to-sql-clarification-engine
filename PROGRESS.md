@@ -1,6 +1,6 @@
 # Progress Log: Text-to-SQL with Clarification Engine
 
-**Mentor:** Ox Alpha | **Intern:** Idris (BS-AI, NUML)
+**Creator:** Idris (BS-AI, NUML)
 
 ---
 
