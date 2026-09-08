@@ -24,7 +24,7 @@
 | Full wipe: container + volume | GUI: delete both individually<br>CLI: `docker compose down -v` ⚠️ data gone |
 | Containers/Images lists | `docker ps -a` / `docker images` |
 | Inspect running compose services | `docker compose ps` |
-| PSQL directly in our DB | `docker exec -it text2sql-db psql -U intern -d companydb` |
+| PSQL directly in our DB | `docker exec -it text2sql-db psql -U user -d companydb` |
 
 ## The Volume / `-v` Mental Model
 
