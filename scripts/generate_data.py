@@ -79,7 +79,7 @@ CREATE TABLE payments (
     order_dates = {}
     valid_order_ids = []
 
-    # FIX: Restored missing terminal integer '+ 1'
+    
     for o_id in range(1, num_orders + 1):
         customer_id = random.randint(1, num_customers)
         signup_dt = datetime.strptime(customer_signup_dates[customer_id], '%Y-%m-%d')
