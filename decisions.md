@@ -71,3 +71,25 @@
   - `payments(payment_id, order_id FK, amount, payment_date, method)`
 - **Why:** Minimal but rich enough to produce ambiguous questions: "best customer" = most orders? most revenue? most repeat visits? All three are answerable with different queries — that ambiguity IS the project.
 - **Trade-off:** No products/inventory table — kept scope minimal for clarity.
+
+---
+
+## D9: Read-Only Query Executor with Execution Safeguards
+
+- **What:** `src/db.py` executes generated SQL queries inside a transaction block with `SET TRANSACTION READ ONLY;` and `SET statement_timeout = 5000;` using SQLAlchemy and psycopg2.
+- **Why:** 
+  - Prevents the LLM from executing destructive queries (`DROP`, `DELETE`, `UPDATE`) against PostgreSQL.
+  - Caps query execution to 5 seconds (5000ms) to safeguard against runaway joins or unindexed scans.
+  - Exposes `get_schema_context()` by dynamically querying `information_schema.columns` to inject up-to-date database structure into prompt contexts.
+- **Trade-off:** Read-only constraints mean this system cannot perform data modification tasks, which is intentional for a pure Text-to-SQL query engine.
+
+---
+
+## D10: Gemini 2.5 Flash via Chat Interface for SQL Generation
+
+- **What:** `src/llm.py` uses `gemini-2.5-flash` with the official `google-genai` SDK using `client.chats.create` and zero-temperature configurations.
+- **Why:** 
+  - `gemini-2.5-flash` provides ultra-fast response times and high SQL generation accuracy.
+  - Using the chat interface (`client.chats.create`) avoids internal Automatic Function Calling (AFC) SDK deprecation warnings logged during stateless `generate_content` calls.
+  - Temperature set to `0.0` ensures deterministic, repeatable SQL code output.
+- **Trade-off:** Bypasses LLM reasoning commentary in favor of strictly structured raw SQL text that can be directly parsed and executed by the database.
