@@ -103,7 +103,7 @@ The relational schema consists of three interconnected core business entities:
 - [x] Step 1: Postgres via Docker
 - [x] Step 2: Schema + dummy data
 - [x] Step 3: Hand-written SQL practice (10 queries)
-- [ ] Step 4: LLM text-to-SQL (no clarification)
+- [x] Step 4: LLM text-to-SQL (no clarification)
 - [ ] Step 5: Measure baseline accuracy
 - [ ] Step 6: Add clarification engine
 - [ ] Step 7: Measure again, compare, document
