@@ -20,18 +20,13 @@
 - [x] **Step 1:** Postgres via Docker
 - [x] **Step 2:** Schema + dummy data
 - [x] **Step 3:** Hand-written SQL practice (10 queries)
+- [x] **Step 4:** LLM text-to-SQL (no clarification)
 
 ### In Progress 🚧
 
-- [ ] **Step 4:** LLM text-to-SQL (no clarification)
 - [ ] **Step 5:** Measure baseline accuracy
 - [ ] **Step 6:** Add clarification engine
 - [ ] **Step 7:** Measure again, compare, document
 
----
 
-## Notes
 
-- Day 1 focused on infrastructure and data setup
-- See `decisions.md` for project design rationale
-- See `notes/docker-notes.md` for Docker reference and troubleshooting
