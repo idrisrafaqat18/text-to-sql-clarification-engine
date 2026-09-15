@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "question": "Show me all delivered orders from last month",
+    "type": "unambiguous",
+    "expected_sql": "SELECT * FROM orders WHERE status = 'delivered' AND order_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') AND order_date < DATE_TRUNC('month', CURRENT_DATE);"
+  },
+  {
+    "id": 2,
+    "question": "Who is our top customer?",
+    "type": "ambiguous",
+    "expected_sql": null,
+    "notes": "Ambiguous: Could mean total money spent, total order count, or most recent activity."
+  },
+  {
+    "id": 3,
+    "question": "How many pending orders do we have?",
+    "type": "unambiguous",
+    "expected_sql": "SELECT COUNT(*) FROM orders WHERE status = 'pending';"
+  },
+  {
+    "id": 4,
+    "question": "Show me sales by payment method",
+    "type": "ambiguous",
+    "expected_sql": null,
+    "notes": "Ambiguous: Could mean total amount SUM(amount) or payment count COUNT(payment_id)."
+  }
+]

@@ -93,3 +93,23 @@
   - Using the chat interface (`client.chats.create`) avoids internal Automatic Function Calling (AFC) SDK deprecation warnings logged during stateless `generate_content` calls.
   - Temperature set to `0.0` ensures deterministic, repeatable SQL code output.
 - **Trade-off:** Bypasses LLM reasoning commentary in favor of strictly structured raw SQL text that can be directly parsed and executed by the database.
+
+---
+
+## D11: Benchmark Evaluation Set for Baseline Measurement
+
+- **What:** Created a structured benchmark dataset (`tests/eval_set.json`) containing both unambiguous and intentionally ambiguous natural language questions.
+- **Why:** 
+  - Establishes a verifiable ground-truth evaluation suite prior to introducing the Clarification Engine.
+  - Allows systematic categorization of model behavior (e.g., `PASS`, `NO_RESULTS`, `UNHANDLED_AMBIGUITY`, `EXECUTION_ERROR`).
+- **Trade-off:** Manual creation of benchmark test cases requires curated coverage of common edge cases and ambiguous business terminology (e.g., "top customer", "sales by method").
+
+---
+
+## D12: Automated Baseline Evaluation Runner
+
+- **What:** Created `scripts/evaluate_baseline.py` to execute test queries through the raw LLM-to-SQL pipeline and measure execution success against PostgreSQL.
+- **Why:** 
+  - Generates a quantitative baseline accuracy score before adding interactive clarification logic.
+  - Enables direct before-and-after accuracy comparisons (Step 5 vs. Step 7) to quantify the impact of the Clarification Engine for documentation and technical portfolio evidence.
+- **Trade-off:** Direct execution without user intervention correctly flags ambiguous queries as `UNHANDLED_AMBIGUITY`, reflecting the operational risk of running single-pass text-to-SQL models in production.
