@@ -113,3 +113,23 @@
   - Generates a quantitative baseline accuracy score before adding interactive clarification logic.
   - Enables direct before-and-after accuracy comparisons (Step 5 vs. Step 7) to quantify the impact of the Clarification Engine for documentation and technical portfolio evidence.
 - **Trade-off:** Direct execution without user intervention correctly flags ambiguous queries as `UNHANDLED_AMBIGUITY`, reflecting the operational risk of running single-pass text-to-SQL models in production.
+
+---
+
+## D13: Pre-Execution Ambiguity Interception (Clarification Engine)
+
+- **What:** Built a dedicated clarification module (`src/clarifier.py`) powered by Gemini 2.5 Flash to inspect user requests against the database schema prior to SQL generation.
+- **Why:** 
+  - Prevents the pipeline from making blind assumptions on subjective or vague terms like "top customer" or "recent sales".
+  - Intercepts ambiguous requests early and prompts the user with structured clarification options before executing queries against PostgreSQL.
+- **Trade-off:** Adds an extra LLM call latency step for incoming queries, but eliminates the higher risk of returning misleading or incorrect business insights.
+
+---
+
+## D14: DataFrame Boolean Evaluation & Result Formatting
+
+- **What:** Updated result handling in `src/main.py` to evaluate query output using `results.empty` and display formatted tables using `to_string(index=False)`.
+- **Why:** 
+  - Resolves pandas `ValueError` exceptions caused by direct truthiness checks (`if not results:`) on SQL query DataFrames.
+  - Ensures clean, index-free tabular formatting in the terminal interface for both populated and empty result sets.
+- **Trade-off:** Requires explicit DataFrame checks across all execution paths rather than generic Python conditional checks.
