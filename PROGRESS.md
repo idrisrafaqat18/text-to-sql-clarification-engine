@@ -23,10 +23,10 @@
 - [x] **Step 4:** LLM text-to-SQL (no clarification)
 - [x] **Step 5:** Measure baseline accuracy
 - [x] **Step 6:** Add clarification engine
+- [x] **Step 7:** Measure again, compare, document
 
-### In Progress 🚧
 
-- [ ] **Step 7:** Measure again, compare, document
+
 
 
 
