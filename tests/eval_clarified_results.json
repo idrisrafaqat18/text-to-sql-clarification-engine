@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-09-20T19:34:24.895347",
+  "total_tests": 4,
+  "accuracy_percentage": 100.0,
+  "breakdown": {
+    "PASS": 2,
+    "INTERCEPTED_AMBIGUITY": 2,
+    "FALSE_POSITIVE_AMBIGUITY": 0,
+    "UNHANDLED_AMBIGUITY": 0,
+    "NO_RESULTS": 0,
+    "EXECUTION_ERROR": 0
+  },
+  "details": [
+    {
+      "id": 1,
+      "query": "Show me all delivered orders from last month",
+      "expected_ambiguous": false,
+      "status": "PASS",
+      "generated_sql": "SELECT *\nFROM orders\nWHERE status = 'delivered'\n  AND order_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month')\n  AND order_date < DATE_TRUNC('month', CURRENT_DATE);",
+      "execution_error": null
+    },
+    {
+      "id": 2,
+      "query": "Who is our top customer?",
+      "expected_ambiguous": true,
+      "status": "INTERCEPTED_AMBIGUITY",
+      "ambiguity_reason": "The term \"top customer\" is vague and can be interpreted in multiple ways, such as based on total spending, total number of orders, or recent activity.",
+      "clarification_question": "How would you like to define \"top customer\"? By total amount spent, total number of orders, or something else?",
+      "options": [
+        "Total amount spent",
+        "Total number of orders",
+        "Most recent activity"
+      ],
+      "generated_sql": null,
+      "execution_error": null
+    },
+    {
+      "id": 3,
+      "query": "How many pending orders do we have?",
+      "expected_ambiguous": false,
+      "status": "PASS",
+      "generated_sql": "SELECT COUNT(*) FROM orders WHERE status = 'pending';",
+      "execution_error": null
+    },
+    {
+      "id": 4,
+      "query": "Show me sales by payment method",
+      "expected_ambiguous": true,
+      "status": "INTERCEPTED_AMBIGUITY",
+      "ambiguity_reason": "The term 'sales' is ambiguous. It could refer to the total amount of money received, the number of payments made, or the number of orders associated with a payment method.",
+      "clarification_question": "When you say 'sales', do you mean the total amount of money, the number of payments, or the number of orders?",
+      "options": [
+        "Total amount",
+        "Number of payments",
+        "Number of orders"
+      ],
+      "generated_sql": null,
+      "execution_error": null
+    }
+  ]
+}
