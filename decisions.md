@@ -133,3 +133,13 @@
   - Resolves pandas `ValueError` exceptions caused by direct truthiness checks (`if not results:`) on SQL query DataFrames.
   - Ensures clean, index-free tabular formatting in the terminal interface for both populated and empty result sets.
 - **Trade-off:** Requires explicit DataFrame checks across all execution paths rather than generic Python conditional checks.
+
+---
+
+## D15: Standardized Evaluation Schema & Clarifier SDK Cleanup
+
+- **What:** Updated `scripts/evaluate_clarified.py` to support multiple key structures (`question`, `query`) and ambiguity types (`type: ambiguous`), while removing empty `tools=[]` definitions from `src/clarifier.py`.
+- **Why:** 
+  - Resolves test suite parsing failures caused by field mismatches in `tests/eval_set.json`.
+  - Fixes Gemini SDK warnings caused by empty tool list assignments during structured JSON generation.
+- **Trade-off:** Requires fallback field resolution in evaluation scripts to accommodate slight schema variations across test sets.
